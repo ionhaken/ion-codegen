@@ -1,21 +1,28 @@
-Ion Haken Codegen
-
-This code generator builds data stores which can be reconfigured without need for changing the application code. In many cases you do not know in advance what kind of data layout is optimal for you use cases as real usage will be revealed late in production. With the code generator you can change your data layout at any stage easily.
+Ion-Codegen
+-----------------
+Ion-Codegen code generator builds storage classes for arrays of data, Data Stores, which can be reconfigured without need for changing the application code. In many cases you do not know in advance what kind of data layout is optimal for you use cases as real usage will be revealed late in production. With the code generator you can change your data layout at any stage easily, for example, between structs of arrays or arrays of structs.
 
 
 Features
 --------
-- Access data directly or using indices.
-- Single memory block allocated per store to prevent data fragmentation
-- Data version numbering to detect dangling identifiers. (#define ION_COMPONENT_VERSION_NUMBER 1)
-- Race condition detection. (#define ION_ASSERTS_ENABLED 1) 
-- Can generate serialization scaffoldings.
+- Data access directly or using indices for flat data.
+- Single memory block allocated per Data Store to prevent data fragmentation
+- Supports reverse lookups using custom identifiers.
+- Optional data version numbering to detect dangling identifiers. (#define ION_COMPONENT_VERSION_NUMBER 1)
+- Optional race condition detection. (#define ION_ASSERTS_ENABLED 1) 
+- Can generate also stubs for data serialization
 
 
-Data Model definition file
---------------------------
+Setting up
+----------
+Clone repository, update submodules (see .gitmodules) and generate projects using CMake. 
+On Windows you can use scripts/update_submodules_to_latest.bat and generate_cmake.bat from commandline. Load Visual Studio project file from generated/ folder.
 
-Data model defines data stores in JSON format as described below:
+
+Configuring data stores
+-----------------------
+
+Data Stores are configured using data model file, which uses JSON format as described below:
 
 
 {
@@ -23,7 +30,7 @@ Data model defines data stores in JSON format as described below:
 	"model" : 
 	[	
 		{
-			"name" 					: <Name of first store>,
+			"name" 					: <Name of first Data Store>,
 			"resource"   			: <Memory resource (optional)>,
 			"layout" 				: <remapped|lazy (default)>
 			"indexMin"   			: <Minimum number of items in store (default 0)>, 
@@ -102,6 +109,8 @@ Note that paths in generated files are relative to the current directory.
 
 Data store application interface
 --------------------------------
+Please check samples/ for examples.
+
 
 Create a new item
 
