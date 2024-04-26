@@ -1,0 +1,3 @@
+[submodule "ion-core"]
+	path = depend/ion-core
+	url = https://github.com/ionhaken/ion-core.git
