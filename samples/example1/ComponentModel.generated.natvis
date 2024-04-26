@@ -1,0 +1,61 @@
+<?xml version = "1.0" encoding = "utf-8" ?>
+<AutoVisualizer xmlns = "http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name = "::TestNamedObjectComponent">
+		<DisplayString>{{ index={mIndex} }}</DisplayString>
+		<Expand>
+			<Item Name="[UniqueId]">mStore.mData.mUniqueId[mIndex]</Item>
+			<Item Name="[UniqueName]">mStore.mDynamicData.mUniqueName.Get(mStore.mG2.mData[mIndex].mUniqueName)</Item>
+			<Item Name="[TestValue1]">mStore.mG0.mData[mIndex].mTestValue1</Item>
+			<Item Name="[TestValue2]">mStore.mG1.mData[mIndex].mTestValue2</Item>
+			<Item Name="[TestValue3]">mStore.mG2.mData[mIndex].mTestValue3</Item>
+			<Item Name="[TestValue4]">mStore.mG3.mData[mIndex].mTestValue4</Item>
+		</Expand>
+	</Type>
+	<Type Name = "::ConstTestNamedObjectComponent">
+		<DisplayString>{{ index={mIndex} }}</DisplayString>
+		<Expand>
+			<Item Name="[UniqueId]">mStore.mData.mUniqueId[mIndex]</Item>
+			<Item Name="[UniqueName]">mStore.mDynamicData.mUniqueName.Get(mStore.mG2.mData[mIndex].mUniqueName)</Item>
+			<Item Name="[TestValue1]">mStore.mG0.mData[mIndex].mTestValue1</Item>
+			<Item Name="[TestValue2]">mStore.mG1.mData[mIndex].mTestValue2</Item>
+			<Item Name="[TestValue3]">mStore.mG2.mData[mIndex].mTestValue3</Item>
+			<Item Name="[TestValue4]">mStore.mG3.mData[mIndex].mTestValue4</Item>
+		</Expand>
+	</Type>
+	<Type Name = "::TestObjectComponent">
+		<DisplayString>{{ index={mIndex} }}</DisplayString>
+		<Expand>
+			<Item Name="[TestValue1]">mStore.mG0.mData[mIndex].mTestValue1</Item>
+			<Item Name="[TestValue2]">mStore.mG1.mData[mIndex].mTestValue2</Item>
+			<Item Name="[TestValue3]">mStore.mG2.mData[mIndex].mTestValue3</Item>
+			<Item Name="[TestValue4]">mStore.mG3.mData[mIndex].mTestValue4</Item>
+		</Expand>
+	</Type>
+	<Type Name = "::ConstTestObjectComponent">
+		<DisplayString>{{ index={mIndex} }}</DisplayString>
+		<Expand>
+			<Item Name="[TestValue1]">mStore.mG0.mData[mIndex].mTestValue1</Item>
+			<Item Name="[TestValue2]">mStore.mG1.mData[mIndex].mTestValue2</Item>
+			<Item Name="[TestValue3]">mStore.mG2.mData[mIndex].mTestValue3</Item>
+			<Item Name="[TestValue4]">mStore.mG3.mData[mIndex].mTestValue4</Item>
+		</Expand>
+	</Type>
+	<Type Name = "::TestObjectFlatComponent">
+		<DisplayString>{{ index={mIndex} }}</DisplayString>
+		<Expand>
+			<Item Name="[TestValue1]">mStore.mG0.mData[mIndex].mTestValue1</Item>
+			<Item Name="[TestValue2]">mStore.mG1.mData[mIndex].mTestValue2</Item>
+			<Item Name="[TestValue3]">mStore.mG2.mData[mIndex].mTestValue3</Item>
+			<Item Name="[TestValue4]">mStore.mG3.mData[mIndex].mTestValue4</Item>
+		</Expand>
+	</Type>
+	<Type Name = "::ConstTestObjectFlatComponent">
+		<DisplayString>{{ index={mIndex} }}</DisplayString>
+		<Expand>
+			<Item Name="[TestValue1]">mStore.mG0.mData[mIndex].mTestValue1</Item>
+			<Item Name="[TestValue2]">mStore.mG1.mData[mIndex].mTestValue2</Item>
+			<Item Name="[TestValue3]">mStore.mG2.mData[mIndex].mTestValue3</Item>
+			<Item Name="[TestValue4]">mStore.mG3.mData[mIndex].mTestValue4</Item>
+		</Expand>
+	</Type>
+</AutoVisualizer>

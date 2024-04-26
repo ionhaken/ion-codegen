@@ -1,0 +1,111 @@
+{
+	"model" : 
+	[
+		{
+			"name" : "TestNamedObject",
+			"indexMax" : 1000000,
+			"indexEstimate" : 1000000,
+			"layout" : "lazy",
+			"header_includes" : [ "TestData.h", "vector" ],
+			"stats" : "none",
+			"data" : 
+			[
+				{
+					"name" : "UniqueId",
+					"type" : "uint32_t",
+					"reverseMap" : "copy"
+				},
+				{
+					"name" : "UniqueName",
+					"type" : "char",
+					"maxSize" : 200,
+					"group" : 2,
+					"reverseMap" : "reference"
+				},
+				{
+					"name" : "TestValue1",	
+					"type" : "uint32_t",
+					"group" : 0
+				},
+				{
+					"name" : "TestValue2",	
+					"type" : "uint16_t",
+					"group" : 1
+				},				
+				{
+					"name" : "TestValue3",
+					"type" : "uint8_t",
+					"group" : 2
+				},
+				{
+					"name" : "TestValue4",
+					"type" : "std::vector<TestData>",
+					"group" : 3
+				}
+			]
+		},	
+		{
+			"name" : "TestObject",
+			"indexMax" : 1000000,
+			"indexEstimate" : 1000000,
+			"layout" : "lazy",
+			"header_includes" : [ "TestData.h", "vector" ],
+			"stats" : "none",
+			"data" : 
+			[
+				{
+					"name" : "TestValue1",	
+					"type" : "uint32_t",
+					"group" : 0
+				},
+				{
+					"name" : "TestValue2",	
+					"type" : "uint16_t",
+					"group" : 1
+				},				
+				{
+					"name" : "TestValue3",
+					"type" : "uint8_t",
+					"group" : 2
+				},
+				{
+					"name" : "TestValue4",
+					"type" : "std::vector<TestData>",
+					"group" : 3
+				}
+			]
+		},	
+		{
+			"name" : "TestObjectFlat",
+			"indexMax" : 1000000,
+			"indexEstimate" : 1000000,
+			"layout" : "remapped",
+			"allow_invalid_access" : true,
+			"header_includes" : [ "TestData.h", "vector" ],
+			"stats" : "none",
+			"data" : 
+			[
+				{
+					"name" : "TestValue1",	
+					"type" : "uint32_t",
+					"group" : 0
+				},
+				{
+					"name" : "TestValue2",	
+					"type" : "uint16_t",
+					"group" : 1
+				},				
+				{
+					"name" : "TestValue3",
+					"type" : "uint8_t",
+					"group" : 2
+				},
+				{
+					"name" : "TestValue4",
+					"type" : "std::vector<TestData>",
+					"group" : 3
+				}
+			]
+		}
+	]
+}
