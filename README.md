@@ -24,21 +24,20 @@ Configuring data stores
 
 Data Stores are configured using data model file, which uses JSON format as described below:
 
-
+```
 {
 	"namespace" : <Name of data model namespace>,
 	"model" : 
 	[	
 		{
-			"name" 					: <Name of first Data Store>,
+			"name" 				: <Name of first Data Store>,
 			"resource"   			: <Memory resource (optional)>,
-			"layout" 				: <remapped|lazy (default)>
+			"layout" 			: <remapped|lazy (default)>
 			"indexMin"   			: <Minimum number of items in store (default 0)>, 
 			"indexMax"   			: <Maximum number of items in store (mandatory to set, to define how large identifier is needed)>,
 			"indexEstimate"   		: <Estimated number of items in store to reserve memory early (default 0)>,
-			"stats"  				: <all|none (default)>,
-			"allow_invalid_access" 	: <true|false (default)>,
-
+			"stats"  			: <all|none (default)>,
+			"allow_invalid_access" 		: <true|false (default)>,
 			"header_includes" 		: [ <Array of header includes for generated header file (optional)> ],
 			"header_includes_src" 	: [ <Array of header includes for generated source file (optional)> ],
 			"reader"     			: <reader name for serialization (optional - only for serialization)>,
@@ -67,34 +66,34 @@ Data Stores are configured using data model file, which uses JSON format as desc
 			...
 		}
 }
-
+```
 
 layout:
-	lazy - Element id equals index of data. Therefore data is non-contiquous and deleting an item will leave holes to data.  
-	remapped - Element id refers to index of data. Therefore data can be kept contiquous and deleted item will be replaced with an item from end of data while indices are updated.
+- lazy - Element id equals index of data. Therefore data is non-contiquous and deleting an item will leave holes to data.  
+- remapped - Element id refers to index of data. Therefore data can be kept contiquous and deleted item will be replaced with an item from end of data while indices are updated.
 
 stats:
-	all - experimental access tracking
-	none - no stats
+- all - experimental access tracking
+- none - no stats
 	
 allow_invalid_access: 
-	if enabled, first item created to the store is an item that will be accessed when using invalid store identifier.
+- if enabled, first item created to the store is an item that will be accessed when using invalid store identifier.
 
 data - optional type attributes:
-	modifiable: Setter method is replaced by non-constant getter method 
-	unique: As modifiable, but additionally copies are disabllowed - only moves are allowed for this type.
-	const: no setter methods are generated - created item cannot be altered
-	transient: no serialization
+- modifiable: Setter method is replaced by non-constant getter method 
+- unique: As modifiable, but additionally copies are disabllowed - only moves are allowed for this type.
+- const: no setter methods are generated - created item cannot be altered
+- transient: no serialization
 	
 data - group:
-	Group index of the data element. Elements with same index are ordered together. Basically, if all elements have same group index, data is AoS (array of structs) and if all elements have unique indices, data is SoA (struct of arrays). It's possible also use mix of this and have only few elements in SoA. You can omit this field to automatically have SoA.
+Group index of the data element. Elements with same index are ordered together. Basically, if all elements have same group index, data is AoS (array of structs) and if all elements have unique indices, data is SoA (struct of arrays). It's possible also use mix of this and have only few elements in SoA. You can omit this field to automatically have SoA.
 	
 data - reverseMap:
-	Define reverseMap if you want to allow look ups with the data element to find item identifier.
+Define reverseMap if you want to allow look ups with the data element to find item identifier.
 
-	copy: Mapping returns by copy
-	reference: Mapping returns by reference. Note: Arrays are always returned by reference
-	none: No reverse mapping
+- copy: Mapping returns by copy
+- reference: Mapping returns by reference. Note: Arrays are always returned by reference
+- none: No reverse mapping
 
 
 Code generation
@@ -102,7 +101,7 @@ Code generation
 
 Run code generation from command line:
 
-ion-codegen.exe <model file> <target directory>
+ion-codegen.exe [model file] [target directory]
 
 Note that paths in generated files are relative to the current directory.
 
