@@ -5,12 +5,13 @@ Ion-Codegen code generator builds storage classes for arrays of data, Data Store
 
 Features
 --------
-- Data access directly or using indices for flat data.
+- Data access directly or using indices to keep data flat.
 - Single memory block allocated per Data Store to prevent data fragmentation
 - Supports reverse lookups using custom identifiers.
 - Optional data version numbering to detect dangling identifiers. (#define ION_COMPONENT_VERSION_NUMBER 1)
-- Optional race condition detection. (#define ION_ASSERTS_ENABLED 1) 
-- Can generate also stubs for data serialization
+- Optional race condition detection. (#define ION_COMPONENT_READ_WRITE_CHECKS 1) 
+- NATVIS file generation
+- Data serialization scaffoldings
 
 
 Setting up
@@ -52,7 +53,7 @@ Data Stores are configured using data model file, which uses JSON format as desc
 					"name" : <Name of first data element>,
 					"type" : <modifiable|unique|const|transient (optional)> <type name (no space characters allowed)>,
 					"group" : <group index (if not specified a unique group index)>
-					"maxSize" : <Array size (default 1 - no array)>
+					"maxSize" : <Array size (default 1 - single item)>
 					"reverseMap" : <copy|reference|none (default)>
 				},
 				{
@@ -69,15 +70,15 @@ Data Stores are configured using data model file, which uses JSON format as desc
 ```
 
 layout:
-- lazy - Element id equals index of data. Therefore data is non-contiquous and deleting an item will leave holes to data.  
-- remapped - Element id refers to index of data. Therefore data can be kept contiquous and deleted item will be replaced with an item from end of data while indices are updated.
+- lazy - Items are accessed directly using item ids. Deleting an item will leave empty holes to data.  
+- remapped - Item identifiers refer to indices that are used to access data. Deleted item will be replaced with an item from the back of data, but indices to data are updated. This will keep data flat, but accesses are little slower than in lazy layout.
 
 stats:
 - all - experimental access tracking
 - none - no stats
 	
 allow_invalid_access: 
-- if enabled, first item created to the store is an item that will be accessed when using invalid store identifier.
+- if enabled, first item created to the store is an item that will be accessed when using invalid store identifier. ItemId::IsValid() can be used to check is an identifier valid.
 
 data - optional type attributes:
 - modifiable: Setter method is replaced by non-constant getter method 
@@ -91,8 +92,8 @@ Group index of the data element. Elements with same index are ordered together. 
 data - reverseMap:
 Define reverseMap if you want to allow look ups with the data element to find item identifier.
 
-- copy: Mapping returns by copy
-- reference: Mapping returns by reference. Note: Arrays are always returned by reference
+- copy: reverse map returns by copy
+- reference: reverse map returns by reference. Note: Arrays are always returned by reference
 - none: No reverse mapping
 
 
@@ -103,7 +104,7 @@ Run code generation from command line:
 
 ion-codegen.exe [model file] [target directory]
 
-Note that paths in generated files are relative to the current directory.
+Note that paths in generated files are relative to the working directory.
 
 
 Data store application interface
@@ -113,7 +114,7 @@ Please check samples/ for examples.
 
 Create a new item
 
-	ItemId Create(Data element 1, Data element n, ...)
+	ItemId Create(Data element 1, Data element n, ...) // Elements are in alphabetical order
 
 Delete an item using item identifier
 	
@@ -125,13 +126,13 @@ Convert raw index to item identifier
 
 Get read/write accessor to an item	
 	
-	ItemComponent Get(ItemId id);
-	ItemComponent Get(IndexType index); // Remapped layout only
+	Item Get(ItemId id)
+	Item Get(IndexType index) // Remapped layout only
 	
 Get read accessor to an item
 	
-	ConstItemComponent GetConst(ItemId id);
-	ConstItemComponent GetConst(IndexType index); // Remapped layout only
+	ConstItem GetConst(ItemId id)
+	ConstItem GetConst(IndexType index) // Remapped layout only
 	
 Number of items in store.
 	
@@ -148,4 +149,16 @@ Iterating through all items when using "remapped" data layout.
 	{
 		auto item(store.Get(index));
 	}
+
+Return invalid id.
+	
+	ItemId()
+
+To-Do
+-----
+- support generational ids, currently version numbers are used for debug only and access to old generation is error.
+- manual flat layout support: Add ReplaceFromBack method, which replaces target item with an item from back, but there are no reference indices and user needs to manually update references to the last item.
+- support batched (SIMD) data.
+- rename remapped -> flat
+- remove "component" postfixes
 
