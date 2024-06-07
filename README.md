@@ -1,6 +1,8 @@
 Ion-Codegen
 -----------------
-Ion-Codegen code generator builds storage classes for arrays of data, Data Stores, which can be reconfigured without need for changing the application code. In many cases you do not know in advance what kind of data layout is optimal for you use cases as real usage will be revealed late in production. With the code generator you can change your data layout, for example, between structs of arrays or arrays of structs. You can do this at any stage since the layout changes require no changes to the application code.
+Ion-Codegen code generator builds C++ storage classes for arrays of data, Data Stores.
+
+In many cases you do not know in advance what kind of data layout is optimal for you use cases as real usage will be revealed late in production. With the code generator you can change your data layout, for example between structs of arrays or arrays of structs. This is easy at any stage, because reconfinguring data layout of Data Store requires no changes to the application code.
 
 Even if you don't care about performance, using Ion-Codegen saves writing a lot of boilerplate code to get your data organized in a very neat way.
 
@@ -75,14 +77,14 @@ Data Stores are configured using data model file, which uses JSON format as desc
 
 layout:
 - lazy - Items are accessed directly using item ids. Deleting an item will leave empty holes to data.  
-- remapped - Item identifiers refer to indices that are used to access data. Deleted item will be replaced with an item from the back of data, but indices to data are updated. This will keep data flat, but accesses are little slower than in lazy layout.
+- remapped - Item identifiers refer to indices that are used to access data. Deleted item will be replaced with an item from the back of data, but indices to data are updated. This will keep data flat, but accesses are little slower than with lazy layout.
 
 stats:
 - all - experimental access tracking
 - none - no stats
 	
 allow_invalid_access: 
-- if enabled, first item created to the store is an item that will be accessed when using invalid store identifier. ItemId::IsValid() can be used to check is an identifier valid.
+- if enabled, first item created in the store is an item that will be accessed when using invalid store identifier. ItemId::IsValid() can be used to check is an identifier valid.
 
 data - optional type attributes:
 - modifiable: Setter method is replaced by non-constant getter method 
@@ -91,7 +93,7 @@ data - optional type attributes:
 - transient: no serialization
 	
 data - group:
-Group index of the data element. Elements with same index are ordered together. Basically, if all elements have same group index, data is AoS (array of structs) and if all elements have unique indices, data is SoA (struct of arrays). It's possible also use mix of this and have only few elements in SoA. You can omit this field to automatically have SoA.
+Group index of the data element. Elements with same index are ordered together. Basically, if all elements have same group index, data is AoS (array of structs) and if all elements have unique indices, data is SoA (struct of arrays). It's possible use mix of this also and have only few elements in SoA. You can omit this field to automatically have SoA.
 	
 data - reverseMap:
 Define reverseMap if you want to allow look ups with the data element to find item identifier.
