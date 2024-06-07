@@ -86,7 +86,7 @@ allow_invalid_access:
 
 data - optional type attributes:
 - modifiable: Setter method is replaced by non-constant getter method 
-- unique: As modifiable, but additionally copies are disabllowed - only moves are allowed for this type.
+- unique: As modifiable, but only moves are allowed for this type. This is mandatory when the data type is e.g. std::unique_ptr<T>.
 - const: no setter methods are generated - created item cannot be altered
 - transient: no serialization
 	
