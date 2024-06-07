@@ -1,6 +1,6 @@
 Ion-Codegen
 -----------------
-Ion-Codegen code generator builds storage classes for arrays of data, Data Stores, which can be reconfigured without need for changing the application code. In many cases you do not know in advance what kind of data layout is optimal for you use cases as real usage will be revealed late in production. With the code generator you can change your data layout at any stage easily, for example, between structs of arrays or arrays of structs.
+Ion-Codegen code generator builds storage classes for arrays of data, Data Stores, which can be reconfigured without need for changing the application code. In many cases you do not know in advance what kind of data layout is optimal for you use cases as real usage will be revealed late in production. With the code generator you can change your data layout, for example, between structs of arrays or arrays of structs. You can do this at any stage since the layout changes require no changes to the application code.
 
 Even if you don't care about performance, using Ion-Codegen saves writing a lot of boilerplate code to get your data organized in a very neat way.
 
